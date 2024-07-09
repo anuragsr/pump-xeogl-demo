@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>3D Pump Visualisation Web Application</title>
+    <title>3D Pump Prototype</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
@@ -9,7 +9,9 @@
     <link href="css/annotation-style.css" rel="stylesheet"/>
 
     <script src="js/xeogl.min.js"></script>
+
     <script src="js/loaders/OBJModel.js"></script>
+
     <script src="js/annotations/pin.js"></script>
     <script src="js/annotations/annotation.js"></script>
 </head>
@@ -28,8 +30,7 @@
 
         var model = new xeogl.OBJModel({
             id: "pump",
-            src: "../extra/pump_orig/Centrifugal_pump_obj/Centrifugal pump_obj.obj"
-            // src: "models/Water_Centrifugal_Pump.obj"
+            src: "models/Water_Centrifugal_Pump.obj"
         });
         
         var rotate = new xeogl.Rotate({
@@ -39,7 +40,7 @@
 
         var scale = new xeogl.Scale({
             parent: rotate,
-            xyz: [0.001, 0.001, 0.001]
+            xyz: [0.01, 0.01, 0.01]
         });
 
         var translate = new xeogl.Translate({
@@ -48,13 +49,13 @@
         });
 
 
-        // model.transform = translate;
+        model.transform = translate;
 
         //---------------------------------------------------------------------------------
         // Set initial camera position
         //---------------------------------------------------------------------------------
 
-        // model.scene.camera.eye = [0, 20, 35];
+        model.scene.camera.eye = [0, 20, 35];
 
         //---------------------------------------------------------------------------------
         // When the model has loaded, create annotations
@@ -64,58 +65,58 @@
 
         model.on("loaded", function () {
 
-            console.log(model.entities);
+            // console.log(model.entities);
 
             //----------------------------------
             // Annotations
             //----------------------------------
 
             annotations = [
-                // new xeogl.Annotation({
-                //     type: "xeogl.Annotation",
-                //     primIndex: 300,
-                //     bary: [0.05, 0.16, 0.79],
-                //     occludable: false,
-                //     glyph: "A",
-                //     title: "Pump Body",
-                //     desc: "This is the body of the pump",
-                //     eye: [25, 20, 5],
-                //     look: [0, 5, 0],
-                //     up: [0, 1, 0],
-                //     pinShown: true,
-                //     labelShown: false,
-                //     entity: "pump#Water_Centrifugal_Pump_body"
-                // }),
-                // new xeogl.Annotation({
-                //     type: "xeogl.Annotation",
-                //     primIndex: 5000,
-                //     bary: [0.05, 0.16, 0.79],
-                //     occludable: false,
-                //     glyph: "B",
-                //     title: "Pump Chrome",
-                //     desc: "This is the chrome part of the pump",
-                //     eye: [15, 10, 10],
-                //     look: [0, 0, 0],
-                //     up: [0, 1, 0],
-                //     pinShown: true,
-                //     labelShown: false,
-                //     entity: "pump#Water_Centrifugal_Pump_chrome"
-                // }),
-                // new xeogl.Annotation({
-                //     type: "xeogl.Annotation",
-                //     primIndex: 5000,
-                //     bary: [0.05, 0.16, 0.79],
-                //     occludable: false,
-                //     glyph: "C",
-                //     title: "Pump Sign",
-                //     desc: "This part contains the pump sign",
-                //     eye: [-25, 10, 10],
-                //     look: [0, 5, 5],
-                //     up: [0, 1, 0],
-                //     pinShown: true,
-                //     labelShown: false,
-                //     entity: "pump#Water_Centrifugal_Pump_sign"
-                // })
+                new xeogl.Annotation({
+                    type: "xeogl.Annotation",
+                    primIndex: 300,
+                    bary: [0.05, 0.16, 0.79],
+                    occludable: false,
+                    glyph: "A",
+                    title: "Pump Body",
+                    desc: "This is the body of the pump",
+                    eye: [25, 20, 5],
+                    look: [0, 5, 0],
+                    up: [0, 1, 0],
+                    pinShown: true,
+                    labelShown: false,
+                    entity: "pump#Water_Centrifugal_Pump_body"
+                }),
+                new xeogl.Annotation({
+                    type: "xeogl.Annotation",
+                    primIndex: 5000,
+                    bary: [0.05, 0.16, 0.79],
+                    occludable: false,
+                    glyph: "B",
+                    title: "Pump Chrome",
+                    desc: "This is the chrome part of the pump",
+                    eye: [15, 10, 10],
+                    look: [0, 0, 0],
+                    up: [0, 1, 0],
+                    pinShown: true,
+                    labelShown: false,
+                    entity: "pump#Water_Centrifugal_Pump_chrome"
+                }),
+                new xeogl.Annotation({
+                    type: "xeogl.Annotation",
+                    primIndex: 5000,
+                    bary: [0.05, 0.16, 0.79],
+                    occludable: false,
+                    glyph: "C",
+                    title: "Pump Sign",
+                    desc: "This part contains the pump sign",
+                    eye: [-25, 10, 10],
+                    look: [0, 5, 5],
+                    up: [0, 1, 0],
+                    pinShown: true,
+                    labelShown: false,
+                    entity: "pump#Water_Centrifugal_Pump_sign"
+                })
             ];
 
             var cameraFlight = new xeogl.CameraFlightAnimation({
@@ -191,26 +192,26 @@
         // Ground plane
         //---------------------------------------------------------------------------------
 
-        // new xeogl.Entity({
-        //     geometry: {
-        //         type: "xeogl.PlaneGeometry",
-        //         xSize: 3000,
-        //         zSize: 3000
-        //     },
-        //     material: {
-        //         type: "xeogl.PhongMaterial",
-        //         diffuseMap: {
-        //             src: "textures/UVCheckerMap11-1024.png",
-        //             wrapS: "repeat",
-        //             wrapT: "repeat",
-        //             scale: [30, 30],
-        //             encoding: "sRGB"
-        //         },
-        //         backfaces: true
-        //     },
-        //     pickable: false, // Can't be picked
-        //     collidable: false // Does not contribute to overall scene boundary
-        // });
+        new xeogl.Entity({
+            geometry: {
+                type: "xeogl.PlaneGeometry",
+                xSize: 3000,
+                zSize: 3000
+            },
+            material: {
+                type: "xeogl.PhongMaterial",
+                diffuseMap: {
+                    src: "textures/UVCheckerMap11-1024.png",
+                    wrapS: "repeat",
+                    wrapT: "repeat",
+                    scale: [30, 30],
+                    encoding: "sRGB"
+                },
+                backfaces: true
+            },
+            pickable: false, // Can't be picked
+            collidable: false // Does not contribute to overall scene boundary
+        });
 
         //---------------------------------------------------------------------------------
         // User camera control
